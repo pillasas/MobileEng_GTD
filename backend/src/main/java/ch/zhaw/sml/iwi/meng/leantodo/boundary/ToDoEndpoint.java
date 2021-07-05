@@ -19,6 +19,7 @@ public class ToDoEndpoint {
     @Autowired
     private ToDoController toDoController;
 
+    /**Hallo Test Github */
     @RequestMapping(path = "/api/todo", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public List<ToDo> toDo(Principal principal) {
