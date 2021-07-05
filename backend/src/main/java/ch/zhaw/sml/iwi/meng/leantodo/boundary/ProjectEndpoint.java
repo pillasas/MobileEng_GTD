@@ -19,7 +19,7 @@ import ch.zhaw.sml.iwi.meng.leantodo.entity.ToDo;
 @RestController
 public class ProjectEndpoint {
 
-    @Autowired
+    @Autowired 
     private ProjectController projectController;
 
     @RequestMapping(path = "/api/project", method = RequestMethod.GET)
