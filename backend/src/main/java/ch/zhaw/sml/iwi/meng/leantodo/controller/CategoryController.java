@@ -48,7 +48,7 @@ public class CategoryController {
          if(project == null || !project.getOwner().equals(owner)) {
              return;
          }
-         categoryRepository.deleteByCategoryId(categoryId);
+         categoryRepository.deleteById(categoryId);
      }
      
      public void updateCategory(Category category, String owner){
