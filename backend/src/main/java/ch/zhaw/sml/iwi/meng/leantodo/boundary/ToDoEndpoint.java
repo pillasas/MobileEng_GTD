@@ -37,4 +37,5 @@ public class ToDoEndpoint {
     public void updateToDo(@RequestBody ToDo toDo, Principal principal) {
         toDoController.updateToDo(toDo, principal.getName());
     }
+   
 }

@@ -19,8 +19,6 @@ import ch.zhaw.sml.iwi.meng.leantodo.entity.ToDo;
 @RestController
 public class ProjectEndpoint {
 
-    /**Hallo Test Github */
-
     @Autowired 
     private ProjectController projectController;
 
@@ -35,4 +33,19 @@ public class ProjectEndpoint {
     public void addToDo(@RequestParam(name="id") Long projectId, @RequestBody ToDo toDo,  Principal principal) {
         projectController.addToDo(projectId, toDo, principal.getName());
     }
+
+    // Delete Project
+    @RequestMapping(path = "/api/project/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("isAuthenticated() AND hasRole('USER')")
+    public void deleteToDo(@RequestParam(name="id") Long projectId, @RequestBody ToDo toDo,  Principal principal) {
+        projectController.deleteProject(projectId, principal.getName());
+    }
+
+    // Update Project
+    @RequestMapping(path = "/api/project", method = RequestMethod.PUT)
+    @PreAuthorize("isAuthenticated() AND hasRole('USER')")
+    public void updateProject(@RequestBody Project project, Principal principal) {
+        projectController.updateProject(project, principal.getName());
+    }
+
 }

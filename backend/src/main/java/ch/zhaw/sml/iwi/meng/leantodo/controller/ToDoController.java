@@ -16,13 +16,14 @@ public class ToDoController {
     private ToDoRepository toDoRepository;
 
     public List<ToDo> listAllToDos(String loginName) {
-        return toDoRepository.findAllButArchivedByOwner(loginName);
+        return toDoRepository.findByOwner(loginName);
     }
 
     public void persistToDo(ToDo newToDo, String owner) {
         newToDo.setOwner(owner);
         newToDo.setId(null);
         toDoRepository.save(newToDo);
+        //Abfüllen der restlichen Properties 
     }
 
     public void updateToDo(ToDo toDo, String owner) {
@@ -36,4 +37,14 @@ public class ToDoController {
         toDoRepository.save(toDo);
     }
     
+    // Delete
+    public void deleteToDo(long toDoId, String owner)
+{
+    ToDo toDo = toDoRepository.getOne(toDoId);
+    if(toDo == null || !toDo.getOwner().equals(owner)) {
+        return;
+    }
+    toDoRepository.deleteById(toDoId);
+}
+
 }

@@ -1,8 +1,11 @@
 package ch.zhaw.sml.iwi.meng.leantodo.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,9 +20,12 @@ public class ToDo {
     private Long id;
 
     private String title;
-
-    private boolean archived = false;
     private boolean done = false;
+    private String beschreibung;
+    private Date zeitpunkt;
+    private int priorisierung;
+    @Lob
+    private byte[] foto;
 
     @JsonIgnore
     private String owner;
@@ -53,20 +59,6 @@ public class ToDo {
     }
 
     /**
-     * @return the archived
-     */
-    public boolean isArchived() {
-        return archived;
-    }
-
-    /**
-     * @param archived the archived to set
-     */
-    public void setArchived(boolean archived) {
-        this.archived = archived;
-    }
-
-    /**
      * @return the done
      */
     public boolean isDone() {
@@ -93,5 +85,41 @@ public class ToDo {
     public void setOwner(String owner) {
         this.owner = owner;
     }
-    
+
+    //Beschreibung
+    public String getBeschreibung() {
+        return beschreibung;
+    }
+
+    public void setBeschreibung(String beschreibung) {
+        this.beschreibung = beschreibung;
+    }
+
+    //Priorisierung
+    public int getPriorisierung() {
+        return priorisierung;
+    }
+
+    public void setPriorisierung(int priorisierung) {
+        this.priorisierung = priorisierung;
+    }
+
+    //Foto Attachement
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    //Zeitpunkt der ToDo Aufgabe
+    public Date getZeitpunkt() {
+        return zeitpunkt;
+    }
+
+    public void setZeitpunkt(Date zeitpunkt) {
+        this.zeitpunkt = zeitpunkt;
+    }
+
 }

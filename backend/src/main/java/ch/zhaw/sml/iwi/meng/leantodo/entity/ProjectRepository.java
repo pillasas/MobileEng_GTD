@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface ProjectRepository extends JpaRepository<Project, Long>
 {
     public List<Project> findByOwner(String owner);
+
+    public void deleteById(long projectId);
 }

@@ -27,6 +27,7 @@ public class ProjectController {
         // We only create empty projects
         newProject.getToDos().clear();
         newProject.setOwner(owner);
+        //ToDo: Bezeichnung von Projekt noch abfüllen 
         projectRepository.save(newProject);
     }
 
@@ -42,4 +43,23 @@ public class ProjectController {
         projectRepository.save(project);
     }
     
+    // Delete Todo
+    public void deleteProject(long projectId, String owner)
+{
+    Project project = projectRepository.getOne(projectId);
+    if(project == null || !project.getOwner().equals(owner)) {
+        return;
+    }
+    projectRepository.deleteByProjectId(projectId);
+}
+
+public void updateProject(Project project, String owner){
+    if(project == null || !project.getOwner().equals(owner)) {
+        return;
+    }
+    project.setOwner(owner); // Set the owner because this property is ignored in the Rest API
+    projectRepository.save(project);
+}
+
+
 }
