@@ -19,6 +19,8 @@ import ch.zhaw.sml.iwi.meng.leantodo.entity.ToDo;
 @RestController
 public class ProjectEndpoint {
 
+    /**Hallo Test Github */
+
     @Autowired 
     private ProjectController projectController;
 
