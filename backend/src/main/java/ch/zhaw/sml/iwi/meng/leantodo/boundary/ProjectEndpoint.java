@@ -22,12 +22,14 @@ public class ProjectEndpoint {
     @Autowired 
     private ProjectController projectController;
 
+    // Get Project
     @RequestMapping(path = "/api/project", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public List<Project> getProjects(Principal principal) {
         return projectController.listAllProjects(principal.getName());
     }
     
+    // Create Project
     @RequestMapping(path = "/api/project/{id}", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public void addToDo(@RequestParam(name="id") Long projectId, @RequestBody ToDo toDo,  Principal principal) {

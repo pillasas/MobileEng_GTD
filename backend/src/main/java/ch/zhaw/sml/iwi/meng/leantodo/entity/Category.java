@@ -15,10 +15,9 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long categoryId;
-
     private String title;
-
     private String owner;
+    
 
     @OneToMany
     @JoinColumn(name = "categoryId")
@@ -55,4 +54,6 @@ public class Category {
     public void setToDos(List<ToDo> toDos) {
         this.toDos = toDos;
     }
+
+    
 }

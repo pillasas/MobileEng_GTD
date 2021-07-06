@@ -30,7 +30,7 @@ public class CategoryController {
     }
 
     public void addToDo(Long categoryId, ToDo toDo, String owner) {
-        Category category = categoryRepository.getOne(categoryId);
+        Category category = categoryRepository.getById(categoryId);
         if(category == null || !category.getOwner().equals(owner)) {
             return;
         }  
@@ -44,7 +44,7 @@ public class CategoryController {
      // Delete Category
      public void deleteCategory(long categoryId, String owner)
      {
-        Category project = categoryRepository.getOne(categoryId);
+        Category project = categoryRepository.getById(categoryId);
          if(project == null || !project.getOwner().equals(owner)) {
              return;
          }

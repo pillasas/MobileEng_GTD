@@ -1,5 +1,9 @@
 package ch.zhaw.sml.iwi.meng.leantodo;
 
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,12 +15,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import ch.zhaw.sml.iwi.meng.leantodo.entity.Category;
+import ch.zhaw.sml.iwi.meng.leantodo.entity.CategoryRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.Role;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.RoleRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.ToDo;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.ToDoRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.User;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.UserRepository;
+
 
 @SpringBootApplication
 @EnableWebSecurity
@@ -38,6 +45,9 @@ public class LeanToDo implements CommandLineRunner {
     @Autowired
     private ToDoRepository toDoRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -56,23 +66,78 @@ public class LeanToDo implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        //User hinzufügen (3x)
         User u = new User();
         u.setLoginName("user");
         u.setPasswordHash(new BCryptPasswordEncoder().encode("user"));
+
+        User sa = new User();
+        sa.setLoginName("Sasha");
+        sa.setPasswordHash(new BCryptPasswordEncoder().encode("Sasha"));
+
+        User on = new User();
+        on.setLoginName("Onay");
+        on.setPasswordHash(new BCryptPasswordEncoder().encode("Onay"));
+
+        //Rollen definieren
         Role r = new Role();
         r.setRoleName("ROLE_USER");
         roleRepository.save(r);
+        
+
+        Role a = new Role();
+        a.setRoleName("ADMIN");
+        roleRepository.save(a);
+
+        //Rollen Usern hinzufügen
         u.getRoles().add(r);
         userRepository.save(u);
 
-        ToDo toDo = new ToDo();
-        toDo.setTitle("Finish This app");
-        toDo.setOwner("user");
-        toDoRepository.save(toDo);
+        sa.getRoles().add(a);
+        userRepository.save(sa);
 
-        toDo = new ToDo();
-        toDo.setTitle("Reply to student");
-        toDo.setOwner("user");
-        toDoRepository.save(toDo);
+        on.getRoles().add(a);
+        userRepository.save(on);
+
+
+        //ToDos definieren (3x)
+        ToDo toDo1 = new ToDo();
+        toDo1.setTitle("Eier lutsche");
+        toDo1.setOwner("Sasha");
+        toDo1.setBeschreibung("Auf eine eloquente weise die Genitalien lutschen.");
+        toDo1.setPriorisierung(2);
+        toDo1.setZeitpunkt(new Date());
+        toDoRepository.save(toDo1);
+
+        ToDo toDo2 = new ToDo();
+        toDo2.setTitle("Eier gurgeln");
+        toDo2.setOwner("Onay");
+        toDo2.setBeschreibung("Auf eine eloquente weise die Genitalien gurgeln.");
+        toDo2.setPriorisierung(2);
+        toDo2.setZeitpunkt(new Date());
+        toDoRepository.save(toDo2);
+
+        ToDo toDo3 = new ToDo();
+        toDo3.setTitle("Training");
+        toDo3.setOwner("Sasha");
+        toDo3.setBeschreibung("Arnold Schwarzenegger werden");
+        toDo3.setPriorisierung(2);
+        toDo3.setZeitpunkt(new Date());
+        toDoRepository.save(toDo3);
+
+        List<ToDo> toDoList = new ArrayList<>();
+            
+        toDoList.add(toDo1);
+        toDoList.add(toDo2);
+        toDoList.add(toDo3);
+        
+
+        //Category hinzufügen
+        Category cat1 = new Category();
+        cat1.setTitle("Körperliche Aktivitäten");
+        cat1.setOwner("Onay");
+        cat1.setToDos(toDoList);
+        categoryRepository.save(cat1);
+
     }
 }
