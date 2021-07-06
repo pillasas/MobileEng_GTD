@@ -47,8 +47,9 @@ import {
   IonItem,
 } from "@ionic/vue";
 import { useLogin } from "@/composables/useLogin";
+import { defineComponent } from "@vue/runtime-core";
 
-export default {
+export default defineComponent ({
   name: "Login",
   components: {
     IonContent,
@@ -65,5 +66,5 @@ export default {
     const { username, password, login } = useLogin();
     return { username, password, login };
   },
-};
+});
 </script>
