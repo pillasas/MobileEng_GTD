@@ -27,7 +27,7 @@ public class ToDoController {
     }
 
     public void updateToDo(ToDo toDo, String owner) {
-        ToDo orig = toDoRepository.getOne(toDo.getId());
+        ToDo orig = toDoRepository.getById(toDo.getId());
         // Check if the original ToDo was present and that it belonged to the same owner
         if(orig == null || !orig.getOwner().equals(owner)) {
             return;
@@ -40,7 +40,7 @@ public class ToDoController {
     // Delete
     public void deleteToDo(long toDoId, String owner)
 {
-    ToDo toDo = toDoRepository.getOne(toDoId);
+    ToDo toDo = toDoRepository.getById(toDoId);
     if(toDo == null || !toDo.getOwner().equals(owner)) {
         return;
     }

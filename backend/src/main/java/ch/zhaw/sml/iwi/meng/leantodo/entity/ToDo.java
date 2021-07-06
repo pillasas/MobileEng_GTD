@@ -17,7 +17,7 @@ public class ToDo {
     
     @Id
     @GeneratedValue
-    private Long id;
+    private Long toDoId;
 
     private String title;
     private boolean done = false;
@@ -34,14 +34,14 @@ public class ToDo {
      * @return the id
      */
     public Long getId() {
-        return id;
+        return toDoId;
     }
 
     /**
      * @param id the id to set
      */
     public void setId(Long id) {
-        this.id = id;
+        this.toDoId = id;
     }
 
     /**
