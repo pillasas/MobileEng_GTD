@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -14,21 +15,22 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long projectId;
 
     private String title;
 
     private String owner;
 
     @OneToMany
+    @JoinColumn(name = "projectId")
     private List<ToDo> toDos = new ArrayList<>();
 
     public Long getId() {
-        return id;
+        return projectId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.projectId = id;
     }
 
     public String getTitle() {

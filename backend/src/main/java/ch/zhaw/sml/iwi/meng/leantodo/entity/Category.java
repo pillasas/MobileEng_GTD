@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -13,21 +14,22 @@ public class Category {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long categoryId;
 
     private String title;
 
     private String owner;
 
     @OneToMany
+    @JoinColumn(name = "categoryId")
     private List<ToDo> toDos = new ArrayList<>();
 
     public Long getId() {
-        return id;
+        return categoryId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.categoryId = id;
     }
 
     public String getTitle() {

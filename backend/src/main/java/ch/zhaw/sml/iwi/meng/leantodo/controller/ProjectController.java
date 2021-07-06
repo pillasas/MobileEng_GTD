@@ -50,7 +50,7 @@ public class ProjectController {
     if(project == null || !project.getOwner().equals(owner)) {
         return;
     }
-    projectRepository.deleteById(projectId);
+    projectRepository.deleteByProjectId(projectId);
 }
 
 public void updateProject(Project project, String owner){

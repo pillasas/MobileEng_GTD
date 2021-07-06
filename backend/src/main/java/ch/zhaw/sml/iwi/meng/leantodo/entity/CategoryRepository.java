@@ -10,6 +10,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     
         public List<Category> findByOwner(String owner);
     
-        public void deleteById(long categoryId);
+        public void deleteByCategoryId(long categoryId);
     
 }
