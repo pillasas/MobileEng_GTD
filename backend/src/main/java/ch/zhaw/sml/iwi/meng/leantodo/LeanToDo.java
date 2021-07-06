@@ -17,12 +17,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import ch.zhaw.sml.iwi.meng.leantodo.entity.Category;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.CategoryRepository;
+import ch.zhaw.sml.iwi.meng.leantodo.entity.ProjectRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.Role;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.RoleRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.ToDo;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.ToDoRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.User;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.UserRepository;
+import ch.zhaw.sml.iwi.meng.leantodo.entity.Project;
+import ch.zhaw.sml.iwi.meng.leantodo.entity.ProjectRepository;
 
 
 @SpringBootApplication
@@ -47,6 +50,9 @@ public class LeanToDo implements CommandLineRunner {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -83,36 +89,31 @@ public class LeanToDo implements CommandLineRunner {
         Role r = new Role();
         r.setRoleName("ROLE_USER");
         roleRepository.save(r);
-        
-
-        Role a = new Role();
-        a.setRoleName("ADMIN");
-        roleRepository.save(a);
 
         //Rollen Usern hinzufügen
         u.getRoles().add(r);
         userRepository.save(u);
 
-        sa.getRoles().add(a);
+        sa.getRoles().add(r);
         userRepository.save(sa);
 
-        on.getRoles().add(a);
+        on.getRoles().add(r);
         userRepository.save(on);
 
 
         //ToDos definieren (3x)
         ToDo toDo1 = new ToDo();
-        toDo1.setTitle("Eier lutsche");
+        toDo1.setTitle("Fische fagen");
         toDo1.setOwner("Sasha");
-        toDo1.setBeschreibung("Auf eine eloquente weise die Genitalien lutschen.");
+        toDo1.setBeschreibung("Fische fangen mit Klasse.");
         toDo1.setPriorisierung(2);
         toDo1.setZeitpunkt(new Date());
         toDoRepository.save(toDo1);
 
         ToDo toDo2 = new ToDo();
-        toDo2.setTitle("Eier gurgeln");
+        toDo2.setTitle("Eier sammeln");
         toDo2.setOwner("Onay");
-        toDo2.setBeschreibung("Auf eine eloquente weise die Genitalien gurgeln.");
+        toDo2.setBeschreibung("Auf Eierreise.");
         toDo2.setPriorisierung(2);
         toDo2.setZeitpunkt(new Date());
         toDoRepository.save(toDo2);
@@ -126,18 +127,23 @@ public class LeanToDo implements CommandLineRunner {
         toDoRepository.save(toDo3);
 
         List<ToDo> toDoList = new ArrayList<>();
-            
         toDoList.add(toDo1);
         toDoList.add(toDo2);
         toDoList.add(toDo3);
         
-
         //Category hinzufügen
         Category cat1 = new Category();
         cat1.setTitle("Körperliche Aktivitäten");
         cat1.setOwner("Onay");
         cat1.setToDos(toDoList);
         categoryRepository.save(cat1);
+
+
+        //Project hinzufügen
+        Project proj1 = new Project();
+        proj1.setTitle("Weltherrschaft");
+        proj1.setToDos(toDoList);
+        projectRepository.save(proj1);
 
     }
 }

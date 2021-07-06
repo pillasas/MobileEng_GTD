@@ -25,7 +25,9 @@ public class CategoryEndpoint {
     @RequestMapping(path = "/api/category", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public List<Category> getCategories(Principal principal) {
-        return categoryController.listAllCategories(principal.getName());
+        List<Category> res = categoryController.listAllCategories(principal.getName());
+        System.out.println(res);
+        return res;
     }
     
     @RequestMapping(path = "/api/category/{id}", method = RequestMethod.POST)
