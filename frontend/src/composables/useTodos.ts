@@ -26,6 +26,14 @@ export function useTodos() {
         }
     }
 
+    const getTodosByPriority = async () => {
+        try {
+            todos.value = await getAllToDos();
+        } catch (error) {
+            console.log(error); // FIXME: Errorhandling
+        }
+    }
+
     const finishTodo = async (todo: ToDo) => {
         try {
             todo.done = true;
@@ -60,6 +68,8 @@ export function useTodos() {
         deletedTodo,
         todos,
         getTodos,
+        getTodosByTime,
+        getTodosByPriority,
         addTodo,
         finishTodo,
         removeTodo
