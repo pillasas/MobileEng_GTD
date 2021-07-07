@@ -3,19 +3,19 @@
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="timeTodo" href="/tabs/timeTodo">
+        <ion-tab-button tab="overview" href="/tabs/overview">
           <ion-icon :icon="flash" />
-          <ion-label>Aktuell</ion-label>
+          <ion-label>Übersicht</ion-label>
         </ion-tab-button>
         
-        <ion-tab-button tab="priority" href="/tabs/priority">
+        <ion-tab-button tab="tasks" href="/tabs/tasks">
           <ion-icon :icon="send" />
-          <ion-label>Priorität</ion-label>
+          <ion-label>Aufgaben</ion-label>
         </ion-tab-button>
                   
         <ion-tab-button tab="projects" href="/tabs/projects">
           <ion-icon :icon="apps" />
-          <ion-label>Projects</ion-label>
+          <ion-label>Projekte</ion-label>
         </ion-tab-button>
 
       </ion-tab-bar>

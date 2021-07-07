@@ -5,21 +5,21 @@
         <ion-title>Anstehende Aufgaben</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true">
+    <ion-content>
       <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Anstehende Aufgaben</ion-title>
-        </ion-toolbar>
       </ion-header>
+      <tasklist></tasklist>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import App from '@/App.vue';
+import Tasklist from '@/components/Tasklist.vue';
 
 export default  {
-  name: 'TimeToDo',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
+  name: 'Overview',
+  components: {IonPage, IonHeader, IonToolbar, IonTitle, IonContent, Tasklist }
 }
 </script>

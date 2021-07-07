@@ -26,6 +26,10 @@ export async function addNewToDo(newToDo: ToDo): Promise<any>   {
     }
 }
 
+export async function deleteTodo(todo: ToDo): Promise<any>   {
+   throw new Error('Delete function not implemented')
+}
+
 export async function updateToDo(toDo: ToDo): Promise<any>   {
     const config = {        
         withCredentials: true

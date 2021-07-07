@@ -2,13 +2,13 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Priorisierte Aufgaben</ion-title>
+        <ion-title>Alle Aufgaben</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Priorisierte Aufgaben</ion-title>
+          <ion-title size="large">Alle Aufgaben</ion-title>
         </ion-toolbar>
       </ion-header>
     </ion-content>
@@ -19,7 +19,7 @@
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 
 export default  {
-  name: 'PriorityToDo',
+  name: 'AllTasks',
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
 }
 </script>
