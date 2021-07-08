@@ -1,4 +1,4 @@
-import { getAllToDos, updateToDo, addNewToDo, deleteTodo } from '@/api/todos';
+import { getAllToDos, updateToDo, addNewToDo, deleteTodo, getTodo } from '@/api/todos';
 import { ToDo } from '@/model/todo';
 import { onMounted, ref } from 'vue';
 
@@ -6,7 +6,7 @@ export function useTodos() {
 
     const todos = ref<ToDo[]>([]);
 
-    const newTodo = ref<ToDo>({});
+    const editTodo = ref<ToDo>({});
 
     const deletedTodo = ref<ToDo>({});
 
@@ -14,6 +14,15 @@ export function useTodos() {
         try {
             todos.value = await getAllToDos();
         } catch (error) {
+            console.log(error); // FIXME: Errorhandling
+        }
+    }
+
+    const getTodoByTodoId = async (id: number) => {
+        try {
+            editTodo.value = await getTodo(id);
+        }
+        catch (error) {
             console.log(error); // FIXME: Errorhandling
         }
     }
@@ -62,7 +71,7 @@ export function useTodos() {
     const addTodo = async () => {
         try {
             // add the new todo and update the list of all todos afterwards
-            await addNewToDo(newTodo.value);
+            await addNewToDo(editTodo.value);
             getTodos();
         } catch (error) {
             console.log(error); // FIXME: Errorhandling
@@ -80,10 +89,11 @@ export function useTodos() {
     onMounted(getTodos);
 
     return {
-        newTodo,
+        editTodo,
         deletedTodo,
         todos,
         getTodos,
+        getTodoByTodoId,
         getTodosByTime,
         getTodosByPriority,
         addTodo,
