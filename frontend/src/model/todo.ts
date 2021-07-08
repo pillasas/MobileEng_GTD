@@ -1,6 +1,12 @@
 export interface ToDo {
     id?: number;
+    projectId?: number;
+    categoryId?: number;
     title?: string;
-    archived?: boolean;
+    beschreibung?: string;
+    zeitpunkt?: Date;
     done?: boolean;
+    //Enum definieren
+    priorisierung?: number;
+    foto?: Uint16Array;
 }

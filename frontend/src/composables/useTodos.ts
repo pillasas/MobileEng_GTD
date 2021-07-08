@@ -1,4 +1,4 @@
-import { getAllToDos, updateToDo, addNewToDo } from '@/api/todos';
+import { getAllToDos, updateToDo, addNewToDo, deleteTodo, getTodo } from '@/api/todos';
 import { ToDo } from '@/model/todo';
 import { onMounted, ref } from 'vue';
 
@@ -6,11 +6,54 @@ export function useTodos() {
 
     const todos = ref<ToDo[]>([]);
 
-    const newTodo = ref<ToDo>({});
+    const editTodo = ref<ToDo>({});
+
+    const deletedTodo = ref<ToDo>({});
 
     const getTodos = async () => {
         try {
             todos.value = await getAllToDos();
+        } catch (error) {
+            console.log(error); // FIXME: Errorhandling
+        }
+    }
+
+    const getTodoByTodoId = async (id: number) => {
+        try {
+            editTodo.value = await getTodo(id);
+        }
+        catch (error) {
+            console.log(error); // FIXME: Errorhandling
+        }
+    }
+
+    const getTodosByTime = async () => {
+        try {
+            const t = await getAllToDos();
+            todos.value = t.filter((todo) => {
+                // Workaround TypeCast, da aus unerklärlichen Gründen mit ToDo nicht funktioniert.
+                const tmp = todo as any;
+                if (tmp.zeitpunkt) {
+                    return true;
+                }
+                return false;
+            })
+        } catch (error) {
+            console.log(error); // FIXME: Errorhandling
+        }
+    }
+
+    const getTodosByPriority = async () => {
+        try {
+            const t = await getAllToDos();
+            todos.value = t.filter((todo) => {
+                // Workaround TypeCast, da aus unerklärlichen Gründen mit ToDo nicht funktioniert.
+                const tmp = todo as any;
+                if (tmp.priorisierung > 0) {
+                    return true;
+                }
+                return false;
+            })
         } catch (error) {
             console.log(error); // FIXME: Errorhandling
         }
@@ -25,21 +68,19 @@ export function useTodos() {
         }
     }
 
-    const archiveTodo = async (todo: ToDo) => {
+    const addTodo = async () => {
         try {
-            todo.archived = true;
-            await updateToDo(todo);
+            // add the new todo and update the list of all todos afterwards
+            await addNewToDo(editTodo.value);
             getTodos();
         } catch (error) {
             console.log(error); // FIXME: Errorhandling
         }
     }
 
-    const addTodo = async () => {
+    const removeTodo = async () => {
         try {
-            // add the new todo and update the list of all todos afterwards
-            await addNewToDo(newTodo.value);
-            getTodos();
+            await deleteTodo(deletedTodo.value);
         } catch (error) {
             console.log(error); // FIXME: Errorhandling
         }
@@ -48,11 +89,15 @@ export function useTodos() {
     onMounted(getTodos);
 
     return {
-        newTodo,
+        editTodo,
+        deletedTodo,
         todos,
         getTodos,
+        getTodoByTodoId,
+        getTodosByTime,
+        getTodosByPriority,
         addTodo,
         finishTodo,
-        archiveTodo
+        removeTodo
     }
 }
