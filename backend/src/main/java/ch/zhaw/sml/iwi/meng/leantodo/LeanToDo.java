@@ -142,6 +142,7 @@ public class LeanToDo implements CommandLineRunner {
         //Project hinzufügen
         Project proj1 = new Project();
         proj1.setTitle("Weltherrschaft");
+        proj1.setOwner("Onay");
         proj1.setToDos(toDoList);
         projectRepository.save(proj1);
 

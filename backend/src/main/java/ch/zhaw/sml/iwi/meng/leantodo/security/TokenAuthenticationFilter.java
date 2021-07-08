@@ -85,6 +85,8 @@ public class TokenAuthenticationFilter extends GenericFilterBean {
             chain.doFilter(request, response);
         } catch (Exception e) {
             LOGGER.info("Token could not be parsed!");
+            LOGGER.info(rawJsonWebToken);
+            e.printStackTrace();
             // We can stop here and abort the request. An attempt was made to log in with an
             // invalid token.
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token is invalid!");

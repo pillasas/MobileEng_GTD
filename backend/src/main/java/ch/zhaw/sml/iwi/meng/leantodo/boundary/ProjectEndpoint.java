@@ -6,13 +6,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ch.zhaw.sml.iwi.meng.leantodo.controller.ProjectController;
+import ch.zhaw.sml.iwi.meng.leantodo.controller.ToDoController;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.Project;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.ToDo;
 
@@ -22,7 +25,10 @@ public class ProjectEndpoint {
     @Autowired 
     private ProjectController projectController;
 
-    // Get Project
+    @Autowired 
+    private ToDoController todoController;
+
+    // Get Projects
     @RequestMapping(path = "/api/project", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public List<Project> getProjects(Principal principal) {
@@ -30,24 +36,31 @@ public class ProjectEndpoint {
     }
     
     // Create Project
-    @RequestMapping(path = "/api/project/{id}", method = RequestMethod.POST)
+    @RequestMapping(path = "/api/project", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
-    public void addToDo(@RequestParam(name="id") Long projectId, @RequestBody ToDo toDo,  Principal principal) {
-        projectController.addToDo(projectId, toDo, principal.getName());
+    public void addProject(@RequestBody Project newProject,  Principal principal) {
+        projectController.persistProject(newProject, principal.getName(), newProject.getTitle());
     }
 
     // Delete Project
     @RequestMapping(path = "/api/project/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
-    public void deleteProject(@RequestParam(name="id") Long projectId, @RequestBody ToDo toDo,  Principal principal) {
+    public void deleteProject(@PathVariable(name="id") Long projectId, Principal principal) {
+        System.out.println(projectId);
         projectController.deleteProject(projectId, principal.getName());
     }
 
     // Update Project
-    @RequestMapping(path = "/api/project", method = RequestMethod.PUT)
+    @RequestMapping(path = "/api/project/{id}", method = RequestMethod.PUT)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
-    public void updateProject(@RequestBody Project project, Principal principal) {
-        projectController.updateProject(project, principal.getName());
+    public void updateProject(@RequestBody Project project, @PathVariable(name="id") Long projectId, Principal principal) {
+        projectController.updateProject(project, projectId, principal.getName());
+    }
+
+    @RequestMapping(path = "/api/project/{id}/todos", method = RequestMethod.GET)
+    @PreAuthorize("isAuthenticated() AND hasRole('USER')")
+    public List<ToDo> getToDo(@PathVariable(name= "id") Long projectId) {
+        return todoController.getToDosByProjectId(projectId);
     }
 
 }

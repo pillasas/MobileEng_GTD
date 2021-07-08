@@ -11,4 +11,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long>
     public List<Project> findByOwner(String owner);
 
     public void deleteByProjectId(long projectId);
+
+    public Project findByProjectId(long projectId);
 }

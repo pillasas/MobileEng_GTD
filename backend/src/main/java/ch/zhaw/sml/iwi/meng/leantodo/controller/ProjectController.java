@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.Project;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.ProjectRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.ToDo;
@@ -22,43 +23,38 @@ public class ProjectController {
         return projectRepository.findByOwner(loginName);
     }
 
-    public void persistProject(Project newProject, String owner) {
+    public void persistProject(Project newProject, String owner, String title) {
         newProject.setId(null);
         // We only create empty projects
         newProject.getToDos().clear();
         newProject.setOwner(owner);
-        //ToDo: Bezeichnung von Projekt noch abfüllen 
+        newProject.setTitle(title);
         projectRepository.save(newProject);
     }
-
-    public void addToDo(Long projectId, ToDo toDo, String owner) {
-        Project project = projectRepository.getById(projectId);
-        if(project == null || !project.getOwner().equals(owner)) {
-            return;
-        }  
-        // Ensure that JPA creates a new entity
-        toDo.setId(null);
-        toDo.setOwner(owner);
-        project.getToDos().add(toDo);
-        projectRepository.save(project);
-    }
     
-    // Delete Todo
-    public void deleteProject(long projectId, String owner)
-{
+    // Delete Project
+    public void deleteProject(Long projectId, String owner) {   
+    if(projectId == null){
+        return;
+    }
     Project project = projectRepository.getById(projectId);
-    if(project == null || !project.getOwner().equals(owner)) {
+    if(project == null || !owner.equals(project.getOwner())) {
         return;
     }
     projectRepository.deleteByProjectId(projectId);
 }
 
-public void updateProject(Project project, String owner){
-    if(project == null || !project.getOwner().equals(owner)) {
+    // Update Project
+    public void updateProject(Project project, Long projectId, String owner){
+    if(project == null) {
         return;
     }
-    project.setOwner(owner); // Set the owner because this property is ignored in the Rest API
-    projectRepository.save(project);
+    Project existingProject = projectRepository.findByProjectId(projectId);
+    if (existingProject == null || !owner.equals(existingProject.getOwner())) {
+        return;
+    }
+    existingProject.setTitle(project.getTitle());
+    projectRepository.save(existingProject);
 }
 
 
