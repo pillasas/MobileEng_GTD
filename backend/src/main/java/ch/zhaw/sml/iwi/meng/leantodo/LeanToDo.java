@@ -17,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import ch.zhaw.sml.iwi.meng.leantodo.entity.Category;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.CategoryRepository;
-import ch.zhaw.sml.iwi.meng.leantodo.entity.ProjectRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.Role;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.RoleRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.ToDo;
@@ -26,7 +25,6 @@ import ch.zhaw.sml.iwi.meng.leantodo.entity.User;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.UserRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.Project;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.ProjectRepository;
-
 
 @SpringBootApplication
 @EnableWebSecurity

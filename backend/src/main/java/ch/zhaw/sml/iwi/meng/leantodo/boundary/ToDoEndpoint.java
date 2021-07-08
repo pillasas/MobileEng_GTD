@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ch.zhaw.sml.iwi.meng.leantodo.controller.ToDoController;
@@ -45,14 +44,14 @@ public class ToDoEndpoint {
     // Update Todo
     @RequestMapping(path = "/api/todo/{id}", method = RequestMethod.PUT)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
-    public void updateToDo(@RequestBody ToDo toDo, Principal principal) {
-        toDoController.updateToDo(toDo, principal.getName());
+    public void updateToDo(@RequestBody ToDo toDo, @PathVariable(name="id") Long toDoId, Principal principal) {
+        toDoController.updateToDo(toDo, toDoId, principal.getName());
     }
 
-    // Delete Todos
-    @RequestMapping(path = "/api/todo", method = RequestMethod.DELETE)
+    // Delete Todo
+    @RequestMapping(path = "/api/todo/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
-    public void deleteToDo(@RequestParam(name = "id") Long toDoId, Principal principal) {
+    public void deleteToDo(@PathVariable(name = "id") Long toDoId, Principal principal) {
         toDoController.deleteToDo(toDoId, principal.getName());
     }
    

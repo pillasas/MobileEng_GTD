@@ -35,28 +35,37 @@ public class ToDoController {
         // Abfüllen der restlichen Properties
     }
 
-    public void updateToDo(ToDo toDo, String owner) {
-        ToDo orig = toDoRepository.getById(toDo.getId());
-        // Check if the original ToDo was present and that it belonged to the same owner
-        if (orig == null || !orig.getOwner().equals(owner)) {
+    //Update ToDo
+    public void updateToDo(ToDo toDo, Long toDoId, String owner) {
+        if(toDo == null){
             return;
         }
-        // Ok, let's overwrite the existing toDo.
-        toDo.setOwner(owner); // Set the owner because this property is ignored in
-        toDoRepository.save(toDo);
+        ToDo existingToDo = toDoRepository.findByToDoId(toDoId);
+        // Check if the original ToDo was present and that it belonged to the same owner
+        if (existingToDo == null || !owner.equals(existingToDo.getOwner())) {
+            return;
+        }
+        //Updating Todo Variables
+        existingToDo.setTitle(toDo.getTitle());
+        existingToDo.setBeschreibung(toDo.getBeschreibung());
+        existingToDo.setPriorisierung(toDo.getPriorisierung());
+        existingToDo.setZeitpunkt(toDo.getZeitpunkt());
+        toDoRepository.save(existingToDo);
     }
 
     // Delete Todos
     public void deleteToDo(Long toDoId, String owner) {
+        if(toDoId == null){
+            return;
+        }
         ToDo toDo = toDoRepository.getById(toDoId);
-        if (toDo == null || !toDo.getOwner().equals(owner)) {
+        if (toDo == null || !owner.equals(toDo.getOwner())) {
             return;
         }
         toDoRepository.deleteById(toDoId);
     }
 
-    // Get ToDos by ProjectId
-    
+    // Get ToDos by ProjectId  
     public List<ToDo> getToDosByProjectId(Long projectId) {
         Project p = projectRepository.findById(projectId).get();
         

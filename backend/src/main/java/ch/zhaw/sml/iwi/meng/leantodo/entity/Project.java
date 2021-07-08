@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+//import org.hibernate.annotations.Cascade;
+//import org.hibernate.annotations.CascadeType;
 
 @Entity
 public class Project {

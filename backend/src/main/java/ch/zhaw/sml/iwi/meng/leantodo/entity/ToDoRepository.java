@@ -12,7 +12,6 @@ public interface ToDoRepository extends JpaRepository<ToDo,Long> {
     
     public void deleteById(Long toDoId);
 
-    //@Query("SELECT t FROM ToDo as t WHERE t.owner = ?1 AND t.to_do_id = ?2 ")
     public ToDo findByToDoId(Long toDoId);
 
 }
