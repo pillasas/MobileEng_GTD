@@ -3,19 +3,18 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Übersicht</ion-title>
-        <ion-segment value="time">
-          <ion-segment-button @click="loadTimedTasks" value="time"
-            >Anstehend</ion-segment-button
-          >
-          <ion-segment-button @click="loadPrioritisedTasks" value="prioritised"
-            >Priorisiert</ion-segment-button
-          >
-        </ion-segment>
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-header collapse="condense"> </ion-header>
-      <tasklist v:bind:tasks="todos"></tasklist>
+      <ion-segment value="time">
+        <ion-segment-button @click="loadTimedTodos" value="time"
+          >Anstehend</ion-segment-button
+        >
+        <ion-segment-button @click="loadPrioritisedTodos" value="prioritised"
+          >Priorisiert</ion-segment-button
+        >
+      </ion-segment>
+      <to-do-list v-bind:todoItems="todos"></to-do-list>
     </ion-content>
   </ion-page>
 </template>
@@ -30,8 +29,7 @@ import {
   IonSegment,
   IonSegmentButton,
 } from "@ionic/vue";
-import App from "@/App.vue";
-import Tasklist from "@/components/Tasklist.vue";
+import ToDoList from "@/components/ToDoList.vue";
 import { useTodos } from "@/composables/useTodos";
 import { defineComponent } from "@vue/runtime-core";
 
@@ -45,7 +43,7 @@ export default defineComponent({
     IonTitle,
     IonSegment,
     IonSegmentButton,
-    Tasklist
+    ToDoList,
   },
   mounted() {
     this.getTodosByTime();
@@ -55,11 +53,11 @@ export default defineComponent({
     return { todos, getTodosByTime, getTodosByPriority };
   },
   methods: {
-    loadPrioritisedTasks() {
+    loadPrioritisedTodos() {
       this.getTodosByPriority();
     },
 
-    loadTimedTasks() {
+    loadTimedTodos() {
       this.getTodosByTime();
     },
   },

@@ -7,7 +7,7 @@ export async function getAllToDos(): Promise<ToDo[]>   {
         withCredentials: true
     }
     try {
-        const response = await axios.get(API_ROOT + '/api/todo', config);
+       const response = await axios.get(API_ROOT + '/api/todo', config);
         return response.data;
     } catch (error) {
         return error;   

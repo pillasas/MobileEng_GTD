@@ -20,7 +20,7 @@ export function useTodos() {
 
     const getTodosByTime = async () => {
         try {
-            todos.value = await getAllToDos();
+             todos.value = await getAllToDos();
         } catch (error) {
             console.log(error); // FIXME: Errorhandling
         }
