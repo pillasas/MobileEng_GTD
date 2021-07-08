@@ -1,13 +1,22 @@
 <template>
   <ion-item-sliding>
-        <ion-item button
-         v-bind:router-link="'/tabs/todos/' + todoItem.id"
-          v-bind:key="todoItem" 
-          >
+    <ion-item
+      button
+      v-bind:router-link="'/tabs/overview/' + todoItem.id"
+      v-bind:key="todoItem"
+    >
       <ion-label>
-        <h2>{{todoItem.title}}</h2>
-        <h3>{{todoItem.time}}</h3>
-        <p>{{todoItem.description}}</p>
+        <h2>{{ todoItem.title }}</h2>
+        <h3>
+          {{
+            new Date(todoItem.zeitpunkt).toLocaleDateString("de-DE", {
+              hour12: false,
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          }}
+        </h3>
+        <p>{{ todoItem.beschreibung }}</p>
       </ion-label>
     </ion-item>
     <ion-item-options side="end">
@@ -18,7 +27,13 @@
 
 <script lang="ts">
 import { useTodos } from "@/composables/useTodos";
-import { IonItem, IonItemSliding, IonLabel, IonItemOptions, IonItemOption } from "@ionic/vue";
+import {
+  IonItem,
+  IonItemSliding,
+  IonLabel,
+  IonItemOptions,
+  IonItemOption,
+} from "@ionic/vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -28,7 +43,7 @@ export default defineComponent({
     IonItemSliding,
     IonLabel,
     IonItemOptions,
-    IonItemOption
+    IonItemOption,
   },
   props: ["todoItem"],
   setup() {

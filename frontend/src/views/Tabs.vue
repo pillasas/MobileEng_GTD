@@ -8,7 +8,7 @@
           <ion-label>Übersicht</ion-label>
         </ion-tab-button>
         
-        <ion-tab-button tab="tasks" href="/tabs/tasks">
+        <ion-tab-button tab="tasks" href="/tabs/allTodos">
           <ion-icon :icon="send" />
           <ion-label>Aufgaben</ion-label>
         </ion-tab-button>

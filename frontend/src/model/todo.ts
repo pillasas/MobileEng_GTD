@@ -3,11 +3,10 @@ export interface ToDo {
     projectId?: number;
     categoryId?: number;
     title?: string;
-    description?: string;
-    time?: Date;
-    duration?: number;
+    beschreibung?: string;
+    zeitpunkt?: Date;
     done?: boolean;
     //Enum definieren
-    priority?: Enumerator;
+    priorisierung?: number;
     foto?: Uint16Array;
 }

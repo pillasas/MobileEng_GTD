@@ -20,7 +20,15 @@ export function useTodos() {
 
     const getTodosByTime = async () => {
         try {
-             todos.value = await getAllToDos();
+            const t = await getAllToDos();
+            todos.value = t.filter((todo) => {
+                // Workaround TypeCast, da aus unerklärlichen Gründen mit ToDo nicht funktioniert.
+                const tmp = todo as any;
+                if (tmp.zeitpunkt) {
+                    return true;
+                }
+                return false;
+            })
         } catch (error) {
             console.log(error); // FIXME: Errorhandling
         }
@@ -28,7 +36,15 @@ export function useTodos() {
 
     const getTodosByPriority = async () => {
         try {
-            todos.value = await getAllToDos();
+            const t = await getAllToDos();
+            todos.value = t.filter((todo) => {
+                // Workaround TypeCast, da aus unerklärlichen Gründen mit ToDo nicht funktioniert.
+                const tmp = todo as any;
+                if (tmp.priorisierung > 0) {
+                    return true;
+                }
+                return false;
+            })
         } catch (error) {
             console.log(error); // FIXME: Errorhandling
         }
