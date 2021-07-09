@@ -54,7 +54,6 @@ export default defineComponent({
   methods: {
     deleteTodo(){
       this.removeTodo(this.todoItem);
-      // this.getTodos();
       this.$router.go(0);
     }
   }
