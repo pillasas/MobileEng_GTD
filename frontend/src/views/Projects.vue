@@ -2,6 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
+          
         <ion-title>Projekte</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -34,7 +35,7 @@ export default defineComponent({
     IonHeader, 
     IonToolbar, 
     IonTitle, 
-    IonContent
+    IonContent,
   },
   mounted() {
     this.getProjects();

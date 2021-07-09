@@ -2,7 +2,10 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Aufgaben des Projekts {{editProject.title}}</ion-title>
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Aufgaben des Projekts {{ editProject.title }}</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -18,6 +21,8 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
+  IonBackButton,
+  IonButtons,
 } from "@ionic/vue";
 import ToDoList from "@/components/ToDoList.vue";
 import { useProjects } from "@/composables/useProjects";
@@ -33,8 +38,10 @@ export default defineComponent({
     IonToolbar,
     IonTitle,
     ToDoList,
+    IonBackButton,
+    IonButtons,
   },
-    mounted() {
+  mounted() {
     this.getProjectById(Number(this.id));
   },
   setup() {
