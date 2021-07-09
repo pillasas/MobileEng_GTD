@@ -44,13 +44,10 @@
       <!-- Priorität -->
       <ion-item>
         <ion-label>Priorität</ion-label>
-        <ion-select
-          interface="popover"
-          v-model="selectedPrio"
-        >
-         <ion-select-option value="1">Hoch</ion-select-option>
-         <ion-select-option value="2">Mittel</ion-select-option>
-         <ion-select-option value="3">Tief</ion-select-option>
+        <ion-select interface="popover" v-model="selectedPrio">
+          <ion-select-option :value="1">Hoch</ion-select-option>
+          <ion-select-option :value="2">Mittel</ion-select-option>
+          <ion-select-option :value="3">Tief</ion-select-option>
         </ion-select>
       </ion-item>
       <!-- Beschreibung -->
@@ -117,17 +114,17 @@ export default defineComponent({
     IonToggle,
   },
   props: ["todoEdit"],
-  mounted() {
-    this.getTodoByTodoId(Number(this.id));
+  async mounted() {
+    await this.getTodoByTodoId(Number(this.id));
+    this.selectedPrio = this.editTodo.priorisierung as number;
   },
   setup() {
-     const selectedPrio = ref<any>("");
     const route = useRoute();
     const { editTodo, getTodoByTodoId, finishTodo } = useTodos();
     //Id muss gleich heissen wie im router definiert
     const { id } = route.params;
-        selectedPrio.value = "expense"
-    return { selectedPrio, id, editTodo, getTodoByTodoId, finishTodo };
+
+    return { id, editTodo, getTodoByTodoId, finishTodo };
   },
   methods: {
     saveTodo() {
@@ -136,7 +133,7 @@ export default defineComponent({
   },
   data() {
     return {
-      prios: ["1", "2", "3"],
+      selectedPrio: 0,
     };
   },
 });
