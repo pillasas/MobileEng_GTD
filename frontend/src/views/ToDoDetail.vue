@@ -47,7 +47,6 @@
         <ion-select
           interface="popover"
           v-model="selectedPrio"
-         onCha="prioChanged"
         >
          <ion-select-option value="1">Hoch</ion-select-option>
          <ion-select-option value="2">Mittel</ion-select-option>
@@ -134,9 +133,6 @@ export default defineComponent({
     saveTodo() {
       this.finishTodo(this.editTodo);
     },
-    prioChanged(event){
-console.log(event.target.value);
-    }
   },
   data() {
     return {
