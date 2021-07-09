@@ -5,6 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
         </ion-buttons>
+        <ion-title>{{ editTodo.title }}</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -89,6 +90,7 @@ import {
   IonDatetime,
   IonFooter,
   IonToggle,
+  IonTitle
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -112,6 +114,7 @@ export default defineComponent({
     IonFooter,
     IonButton,
     IonToggle,
+    IonTitle
   },
   props: ["todoEdit"],
   async mounted() {

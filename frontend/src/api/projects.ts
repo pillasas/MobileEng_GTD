@@ -21,7 +21,6 @@ export async function getProject(projectId: number): Promise<Project> {
     }
     try {
         const response = await axios.get(API_ROOT + '/api/project/' + projectId, config);
-        debugger
         return response.data;
     } catch (error) {
         return error;
