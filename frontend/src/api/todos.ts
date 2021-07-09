@@ -51,12 +51,12 @@ export async function deleteTodo(todo: ToDo): Promise<ToDo> {
     
 }
 
-export async function updateToDo(toDo: ToDo): Promise<any> {
+export async function updateToDo(toDo: ToDo): Promise<ToDo> {
     const config = {
         withCredentials: true
     }
     try {
-        const response = await axios.put(API_ROOT + '/api/todo', toDo, config);
+        const response = await axios.put(API_ROOT + '/api/todo/' + toDo.id, toDo, config);
         return response.data;
     } catch (error) {
         return error;
