@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ch.zhaw.sml.iwi.meng.leantodo.controller.ProjectController;
@@ -34,6 +32,13 @@ public class ProjectEndpoint {
     public List<Project> getProjects(Principal principal) {
         return projectController.listAllProjects(principal.getName());
     }
+
+    // Get One Project
+    @RequestMapping(path = "/api/project/{id}", method = RequestMethod.GET)
+    @PreAuthorize("isAuthenticated() AND hasRole('USER')")
+    public Project getProject(@PathVariable(name="id") Long projectId) {
+        return projectController.findByProjectId(projectId);
+    } 
     
     // Create Project
     @RequestMapping(path = "/api/project", method = RequestMethod.POST)
@@ -57,6 +62,7 @@ public class ProjectEndpoint {
         projectController.updateProject(project, projectId, principal.getName());
     }
 
+    // Get ToDos by ProjectId
     @RequestMapping(path = "/api/project/{id}/todos", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public List<ToDo> getToDo(@PathVariable(name= "id") Long projectId) {
