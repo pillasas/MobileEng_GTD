@@ -32,6 +32,13 @@ public class ProjectEndpoint {
     public List<Project> getProjects(Principal principal) {
         return projectController.listAllProjects(principal.getName());
     }
+
+    // Get One Project
+    @RequestMapping(path = "/api/project/{id}", method = RequestMethod.GET)
+    @PreAuthorize("isAuthenticated() AND hasRole('USER')")
+    public Project getProject(@PathVariable(name="id") Long projectId) {
+        return projectController.findByProjectId(projectId);
+    } 
     
     // Create Project
     @RequestMapping(path = "/api/project", method = RequestMethod.POST)

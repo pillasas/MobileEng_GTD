@@ -50,6 +50,8 @@ public class ToDoController {
         existingToDo.setBeschreibung(toDo.getBeschreibung());
         existingToDo.setPriorisierung(toDo.getPriorisierung());
         existingToDo.setZeitpunkt(toDo.getZeitpunkt());
+        existingToDo.setDone(toDo.getDone());
+        existingToDo.setFoto(toDo.getFoto());
         toDoRepository.save(existingToDo);
     }
 

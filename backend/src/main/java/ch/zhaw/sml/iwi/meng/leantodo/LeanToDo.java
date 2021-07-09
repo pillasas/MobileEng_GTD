@@ -124,25 +124,90 @@ public class LeanToDo implements CommandLineRunner {
         toDo3.setZeitpunkt(new Date());
         toDoRepository.save(toDo3);
 
-        List<ToDo> toDoList = new ArrayList<>();
-        toDoList.add(toDo1);
-        toDoList.add(toDo2);
-        toDoList.add(toDo3);
+        ToDo toDo4 = new ToDo();
+        toDo4.setTitle("Machthaber ausschalten");
+        toDo4.setOwner("Onay");
+        toDo4.setBeschreibung("Arnold Schwarzenegger auschalten");
+        toDo4.setPriorisierung(2);
+        toDo4.setZeitpunkt(new Date());
+        toDoRepository.save(toDo4);
+
+        ToDo toDo5 = new ToDo();
+        toDo5.setTitle("Spion engagieren");
+        toDo5.setOwner("Onay");
+        toDo5.setBeschreibung("Einen Spion engagieren und einschleusen beim Feind");
+        toDo5.setPriorisierung(2);
+        toDo5.setZeitpunkt(new Date());
+        toDoRepository.save(toDo5);
+
+        ToDo toDo6 = new ToDo();
+        toDo6.setTitle("Panzer kaufen");
+        toDo6.setOwner("Sasha");
+        toDo6.setBeschreibung("Panzer auf dem Schwarzmarkt kaufen");
+        toDo6.setPriorisierung(2);
+        toDo6.setZeitpunkt(new Date());
+        toDoRepository.save(toDo6);
+
+        // Listen für Project/Cat vorbereiten
+        List<ToDo> toDoList1 = new ArrayList<>();
+        toDoList1.add(toDo1);
+        toDoList1.add(toDo2);
+        toDoList1.add(toDo3);
+
+        List<ToDo> toDoList2 = new ArrayList<>();
+        toDoList2.add(toDo4);
+        toDoList2.add(toDo5);
+
+        List<ToDo> toDoList3 = new ArrayList<>();
+        toDoList3.add(toDo6);
         
         //Category hinzufügen
         Category cat1 = new Category();
         cat1.setTitle("Körperliche Aktivitäten");
         cat1.setOwner("Onay");
-        cat1.setToDos(toDoList);
+        cat1.setToDos(toDoList1);
         categoryRepository.save(cat1);
+
+        Category cat2 = new Category();
+        cat2.setTitle("Macht");
+        cat2.setOwner("Sasha");
+        cat2.setToDos(toDoList3);
+        categoryRepository.save(cat2);
+
+        Category cat3 = new Category();
+        cat3.setTitle("Willensdurchsetzung");
+        cat3.setOwner("Onay");
+        cat3.setToDos(toDoList2);
+        categoryRepository.save(cat3);
 
 
         //Project hinzufügen
         Project proj1 = new Project();
-        proj1.setTitle("Weltherrschaft");
+        proj1.setTitle("Übernahme der Welt");
         proj1.setOwner("Onay");
-        proj1.setToDos(toDoList);
+        proj1.setToDos(toDoList2);
         projectRepository.save(proj1);
+
+        Project proj2 = new Project();
+        proj2.setTitle("World War 3");
+        proj2.setOwner("Sasha");
+        proj2.setToDos(toDoList3);
+        projectRepository.save(proj2);
+
+        Project proj3 = new Project();
+        proj3.setTitle("Raumfahrtprogramm");
+        proj3.setOwner("Sasha");
+        projectRepository.save(proj3);
+
+        Project proj4 = new Project();
+        proj4.setTitle("Sekte gründen");
+        proj4.setOwner("Sasha");
+        projectRepository.save(proj4);
+
+        Project proj5 = new Project();
+        proj5.setTitle("Weltfrieden");
+        proj5.setOwner("user");
+        projectRepository.save(proj5);
 
     }
 }
