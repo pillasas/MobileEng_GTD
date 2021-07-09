@@ -23,6 +23,7 @@ import { IonList, IonFab, IonItem } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { useProjects } from "@/composables/useProjects";
 
+
 export default defineComponent({
   name: "Projects",
   components: {
