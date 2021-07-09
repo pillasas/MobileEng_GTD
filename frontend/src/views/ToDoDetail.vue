@@ -10,8 +10,8 @@
     <ion-content>
       <!-- Titel -->
       <ion-item>
-        <ion-label>{{editTodo.title}}</ion-label>
-        <ion-input></ion-input>
+        <ion-label>Title</ion-label>
+        <ion-input v-model="editTodo.title"></ion-input>
       </ion-item>
       <!-- Kategorie -->
       <ion-item>
@@ -29,7 +29,7 @@
       <ion-item>
         <ion-label>Datum</ion-label>
         <ion-datetime
-          value={{editTodo.zeitpunkt}}
+          value=""
           placeholder="Select Date"
         ></ion-datetime>
       </ion-item>
@@ -38,16 +38,16 @@
         <ion-datetime
           display-format="h:mm A"
           picker-format="h:mm A"
-          value={{editTodo.zeitpunkt}}
+          value=""
         ></ion-datetime>
       </ion-item>
       <!-- Priorität -->
       <ion-item>
         <ion-label>Priorität</ion-label>
-        <ion-select interface="popover">
-          <ion-select-option value="1">NES</ion-select-option>
-          <ion-select-option value="2">Nintendo64</ion-select-option>
-          <ion-select-option value="3">PlayStation</ion-select-option>
+        <ion-select interface="popover" v-model="editTodo.priorisierung">
+          <ion-select-option value="1">Hoch</ion-select-option>
+          <ion-select-option value="2">Mittel</ion-select-option>
+          <ion-select-option value="3">Tief</ion-select-option>
         </ion-select>
       </ion-item>
       <!-- Beschreibung -->
@@ -55,8 +55,16 @@
         <ion-label>Beschreibung</ion-label>
         <ion-textarea>{{editTodo.beschreibung}}</ion-textarea>
       </ion-item>
+      <!-- Done -->
+      <ion-label>Erledigt</ion-label>
+          <ion-toggle name="done" v-model:title="editTodo" v-model:content="editTodo.done"></ion-toggle>
       <p>Task-Detail for ID {{ id }}</p>
     </ion-content>
+    <ion-footer>
+      <section class="full-width">
+        <ion-button @click="saveTodo" expand="full" color="secondary">Speichern</ion-button>
+      </section>
+      </ion-footer>
   </ion-page>
 </template>
 
@@ -66,6 +74,7 @@ import {
   IonHeader,
   IonToolbar,
   IonButtons,
+  IonButton,
   IonBackButton,
   IonContent,
   IonItem,
@@ -75,6 +84,8 @@ import {
   IonSelect,
   IonSelectOption,
   IonDatetime,
+  IonFooter,
+  IonToggle
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { useRoute } from "vue-router";
@@ -95,6 +106,9 @@ export default defineComponent({
     IonSelect,
     IonSelectOption,
     IonDatetime,
+    IonFooter,
+    IonButton,
+    IonToggle
   },
   props: ["todoEdit"],
   mounted() {
@@ -104,11 +118,16 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
-    const { editTodo, getTodoByTodoId } = useTodos();
+    const { editTodo, getTodoByTodoId, finishTodo } = useTodos();
     //Id muss gleich heissen wie im router definiert
     const { id } = route.params;
-    return { id, editTodo, getTodoByTodoId  };
+    return { id, editTodo, getTodoByTodoId, finishTodo  };
   },
+  methods: {
+    saveTodo() {
+      this.finishTodo
+    }
+  }
 });
 </script>
 
