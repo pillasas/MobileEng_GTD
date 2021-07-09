@@ -38,8 +38,17 @@ export async function addNewToDo(newToDo: ToDo): Promise<any> {
     }
 }
 
-export async function deleteTodo(todo: ToDo): Promise<any> {
-    throw new Error('Delete function not implemented')
+export async function deleteTodo(todo: ToDo): Promise<ToDo> {
+    const config = {
+        withCredentials: true
+    }
+    try {
+        const response = await axios.delete(API_ROOT + '/api/todo/' + todo.id, config);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+    
 }
 
 export async function updateToDo(toDo: ToDo): Promise<any> {

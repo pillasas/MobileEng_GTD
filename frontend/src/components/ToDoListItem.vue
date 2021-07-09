@@ -20,13 +20,14 @@
       </ion-label>
     </ion-item>
     <ion-item-options side="end">
-      <ion-item-option @click="removeTodo(item)">Löschen</ion-item-option>
+      <ion-item-option @click="deleteTodo()">Löschen</ion-item-option>
     </ion-item-options>
   </ion-item-sliding>
 </template>
 
 <script lang="ts">
 import { useTodos } from "@/composables/useTodos";
+import { useRoute } from "vue-router";
 import {
   IonItem,
   IonItemSliding,
@@ -47,9 +48,16 @@ export default defineComponent({
   },
   props: ["todoItem"],
   setup() {
-    const { removeTodo } = useTodos();
-    return { removeTodo };
+    const { removeTodo, getTodos } = useTodos();
+    return {removeTodo, getTodos };
   },
+  methods: {
+    deleteTodo(){
+      this.removeTodo(this.todoItem);
+      // this.getTodos();
+      this.$router.go(0);
+    }
+  }
 });
 </script>
 

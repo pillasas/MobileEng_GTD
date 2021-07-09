@@ -64,7 +64,7 @@ public class ToDoController {
         if (toDo == null || !owner.equals(toDo.getOwner())) {
             return;
         }
-        toDoRepository.deleteById(toDoId);
+        toDoRepository.deleteByToDoId(toDoId);
     }
 
     // Get ToDos by ProjectId  

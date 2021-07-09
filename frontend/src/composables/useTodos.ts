@@ -78,9 +78,10 @@ export function useTodos() {
         }
     }
 
-    const removeTodo = async () => {
+    const removeTodo = async (todo: ToDo) => {
         try {
-            await deleteTodo(deletedTodo.value);
+            await deleteTodo(todo);
+            
         } catch (error) {
             console.log(error); // FIXME: Errorhandling
         }
