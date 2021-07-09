@@ -52,8 +52,8 @@ export default defineComponent({
     return {removeTodo, getTodos };
   },
   methods: {
-    deleteTodo(){
-      this.removeTodo(this.todoItem);
+    async deleteTodo(){
+      await this.removeTodo(this.todoItem);
       this.$router.go(0);
     }
   }
