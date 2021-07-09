@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { IonList, IonFab, IonItem } from "@ionic/vue";
+import { IonList, IonFab, IonItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { useProjects } from "@/composables/useProjects";
 
@@ -30,6 +30,11 @@ export default defineComponent({
     IonList,
     IonFab,
     IonItem,
+    IonPage, 
+    IonHeader, 
+    IonToolbar, 
+    IonTitle, 
+    IonContent
   },
   mounted() {
     this.getProjects();

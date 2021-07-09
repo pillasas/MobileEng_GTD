@@ -13,8 +13,8 @@
         <ion-label>Title</ion-label>
         <ion-input v-model="editTodo.title"></ion-input>
       </ion-item>
-      <!-- Kategorie -->
-      <ion-item>
+      <!-- Kategorie (not implemented)-->
+      <!-- <ion-item>
         <ion-label>Kategorie</ion-label>
         <ion-select interface="popover">
           <ion-select-option value="nes">NES</ion-select-option>
@@ -24,12 +24,12 @@
           <ion-select-option value="saturn">Sega Saturn</ion-select-option>
           <ion-select-option value="snes">SNES</ion-select-option>
         </ion-select>
-      </ion-item>
+      </ion-item> -->
       <!-- Zeitpunkt -->
       <ion-item>
         <ion-label>Datum</ion-label>
         <ion-datetime
-          value=""
+          v-bind:value="editTodo.zeitpunkt"
           placeholder="Select Date"
         ></ion-datetime>
       </ion-item>
@@ -38,14 +38,20 @@
         <ion-datetime
           display-format="h:mm A"
           picker-format="h:mm A"
-          value=""
+          v-bind:value="editTodo.zeitpunkt"
         ></ion-datetime>
       </ion-item>
       <!-- Priorität -->
       <ion-item>
         <ion-label>Priorität</ion-label>
-        <ion-select interface="popover" v-model="editTodo.priorisierung">
-          <ion-select-option :key="prio" v-for="prio in prios" v-bind:value="prio">{{prio}}</ion-select-option>
+        <ion-select
+          interface="popover"
+          v-model="selectedPrio"
+         onCha="prioChanged"
+        >
+         <ion-select-option value="1">Hoch</ion-select-option>
+         <ion-select-option value="2">Mittel</ion-select-option>
+         <ion-select-option value="3">Tief</ion-select-option>
         </ion-select>
       </ion-item>
       <!-- Beschreibung -->
@@ -54,16 +60,18 @@
         <ion-textarea v-model="editTodo.beschreibung"></ion-textarea>
       </ion-item>
       <!-- Done -->
-      <ion-label>Erledigt</ion-label>
-          <ion-toggle name="done" v-model:title="editTodo" v-model:content="editTodo.done"></ion-toggle>
-      <p>Task-Detail for ID {{ id }}</p>
-      <p>Task-Detail for ID {{ editTodo.priorisierung }}</p>
+      <ion-item>
+        <ion-label>Erledigt</ion-label>
+        <ion-toggle name="done" v-bind:checked="editTodo.done"></ion-toggle>
+      </ion-item>
     </ion-content>
     <ion-footer>
       <section class="full-width">
-        <ion-button @click="saveTodo" expand="full" color="secondary">Speichern</ion-button>
+        <ion-button @click="saveTodo" expand="full" color="secondary"
+          >Speichern</ion-button
+        >
       </section>
-      </ion-footer>
+    </ion-footer>
   </ion-page>
 </template>
 
@@ -84,9 +92,9 @@ import {
   IonSelectOption,
   IonDatetime,
   IonFooter,
-  IonToggle
+  IonToggle,
 } from "@ionic/vue";
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useTodos } from "@/composables/useTodos";
 
@@ -107,30 +115,34 @@ export default defineComponent({
     IonDatetime,
     IonFooter,
     IonButton,
-    IonToggle
+    IonToggle,
   },
   props: ["todoEdit"],
   mounted() {
     this.getTodoByTodoId(Number(this.id));
-    
   },
   setup() {
+     const selectedPrio = ref<any>("");
     const route = useRoute();
     const { editTodo, getTodoByTodoId, finishTodo } = useTodos();
     //Id muss gleich heissen wie im router definiert
     const { id } = route.params;
-    return { id, editTodo, getTodoByTodoId, finishTodo  };
+        selectedPrio.value = "expense"
+    return { selectedPrio, id, editTodo, getTodoByTodoId, finishTodo };
   },
   methods: {
     saveTodo() {
-      this.finishTodo(this.editTodo)
+      this.finishTodo(this.editTodo);
+    },
+    prioChanged(event){
+console.log(event.target.value);
     }
   },
-  data(){
-    return{
-      prios:["1","2","3"]
-    }
-  }
+  data() {
+    return {
+      prios: ["1", "2", "3"],
+    };
+  },
 });
 </script>
 
