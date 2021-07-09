@@ -29,6 +29,7 @@ import {
   IonSegment,
   IonSegmentButton,
 } from "@ionic/vue";
+
 import ToDoList from "@/components/ToDoList.vue";
 import { useTodos } from "@/composables/useTodos";
 import { defineComponent } from "@vue/runtime-core";

@@ -8,7 +8,7 @@
       ></to-do-list-item>
     </ion-list>
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-      <ion-fab-button>
+      <ion-fab-button router-link="/tabs/overview/newTodo" >
         <ion-icon :icon="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>
@@ -30,11 +30,16 @@ export default defineComponent({
     IonFabButton,
     IonIcon,
   },
+
   props: ["todoItems"],
   setup() {
     return {
       add,
     };
+  },
+  data(){
+return {
+  }
   },
 });
 </script>

@@ -30,7 +30,7 @@
       <ion-item>
         <ion-label>Datum</ion-label>
         <ion-datetime
-          v-bind:value="editTodo.zeitpunkt"
+          v-model="editTodo.zeitpunkt" v-bind:value="editTodo.zeitpunkt"
           placeholder="Select Date"
         ></ion-datetime>
       </ion-item>
@@ -90,7 +90,7 @@ import {
   IonDatetime,
   IonFooter,
   IonToggle,
-  IonTitle
+  IonTitle,
 } from "@ionic/vue";
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -114,24 +114,32 @@ export default defineComponent({
     IonFooter,
     IonButton,
     IonToggle,
-    IonTitle
+    IonTitle,
   },
   props: ["todoEdit"],
   async mounted() {
-    await this.getTodoByTodoId(Number(this.id));
+    if (this.id !== "newTodo") {
+      await this.getTodoByTodoId(Number(this.id));
+    } 
     this.selectedPrio = this.editTodo.priorisierung as number;
   },
   setup() {
     const route = useRoute();
-    const { editTodo, getTodoByTodoId, finishTodo } = useTodos();
+    const { editTodo, getTodoByTodoId, finishTodo, addTodo } = useTodos();
     //Id muss gleich heissen wie im router definiert
     const { id } = route.params;
 
-    return { id, editTodo, getTodoByTodoId, finishTodo };
+    return { id, editTodo, getTodoByTodoId, finishTodo, addTodo };
   },
   methods: {
-    saveTodo() {
-      this.finishTodo(this.editTodo);
+   async saveTodo() {
+      if (this.id == "newTodo") {
+       await this.addTodo(this.editTodo);
+      } else {
+        this.finishTodo(this.editTodo);
+      }
+      this.$router.push({ name: "overview"})
+      // this.$router.go(0)
     },
   },
   data() {

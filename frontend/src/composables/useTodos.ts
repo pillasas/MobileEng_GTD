@@ -30,6 +30,7 @@ export function useTodos() {
     const getTodosByTime = async () => {
         try {
             const t = await getAllToDos();
+            
             todos.value = t.filter((todo) => {
                 // Workaround TypeCast, da aus unerklärlichen Gründen mit ToDo nicht funktioniert.
                 const tmp = todo as any;
@@ -68,10 +69,10 @@ export function useTodos() {
         }
     }
 
-    const addTodo = async () => {
+    const addTodo = async (todo: ToDo) => {
         try {
             // add the new todo and update the list of all todos afterwards
-            await addNewToDo(editTodo.value);
+            await addNewToDo(todo);
             getTodos();
         } catch (error) {
             console.log(error); // FIXME: Errorhandling
