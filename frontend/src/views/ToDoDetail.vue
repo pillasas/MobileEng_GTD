@@ -45,20 +45,19 @@
       <ion-item>
         <ion-label>Priorität</ion-label>
         <ion-select interface="popover" v-model="editTodo.priorisierung">
-          <ion-select-option value="1">Hoch</ion-select-option>
-          <ion-select-option value="2">Mittel</ion-select-option>
-          <ion-select-option value="3">Tief</ion-select-option>
+          <ion-select-option :key="prio" v-for="prio in prios" v-bind:value="prio">{{prio}}</ion-select-option>
         </ion-select>
       </ion-item>
       <!-- Beschreibung -->
       <ion-item>
         <ion-label>Beschreibung</ion-label>
-        <ion-textarea>{{editTodo.beschreibung}}</ion-textarea>
+        <ion-textarea v-model="editTodo.beschreibung"></ion-textarea>
       </ion-item>
       <!-- Done -->
       <ion-label>Erledigt</ion-label>
           <ion-toggle name="done" v-model:title="editTodo" v-model:content="editTodo.done"></ion-toggle>
       <p>Task-Detail for ID {{ id }}</p>
+      <p>Task-Detail for ID {{ editTodo.priorisierung }}</p>
     </ion-content>
     <ion-footer>
       <section class="full-width">
@@ -112,7 +111,6 @@ export default defineComponent({
   },
   props: ["todoEdit"],
   mounted() {
-    
     this.getTodoByTodoId(Number(this.id));
     
   },
@@ -125,7 +123,12 @@ export default defineComponent({
   },
   methods: {
     saveTodo() {
-      this.finishTodo
+      this.finishTodo(this.editTodo)
+    }
+  },
+  data(){
+    return{
+      prios:["1","2","3"]
     }
   }
 });
