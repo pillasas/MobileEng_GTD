@@ -142,11 +142,19 @@ public class LeanToDo implements CommandLineRunner {
 
         ToDo toDo6 = new ToDo();
         toDo6.setTitle("Panzer kaufen");
-        toDo6.setOwner("Sasha");
+        toDo6.setOwner("Onay");
         toDo6.setBeschreibung("Panzer auf dem Schwarzmarkt kaufen");
         toDo6.setPriorisierung(2);
         toDo6.setZeitpunkt(new Date());
         toDoRepository.save(toDo6);
+
+        ToDo toDo7 = new ToDo();
+        toDo7.setTitle("Panzer kaufen");
+        toDo7.setOwner("Sasha");
+        toDo7.setBeschreibung("Panzer auf dem Schwarzmarkt kaufen");
+        toDo7.setPriorisierung(2);
+        toDo7.setZeitpunkt(new Date());
+        toDoRepository.save(toDo7);
 
         // Listen für Project/Cat vorbereiten
         List<ToDo> toDoList1 = new ArrayList<>();
@@ -157,9 +165,10 @@ public class LeanToDo implements CommandLineRunner {
         List<ToDo> toDoList2 = new ArrayList<>();
         toDoList2.add(toDo4);
         toDoList2.add(toDo5);
+        toDoList2.add(toDo6);
 
         List<ToDo> toDoList3 = new ArrayList<>();
-        toDoList3.add(toDo6);
+        toDoList3.add(toDo7);
         
         //Category hinzufügen
         Category cat1 = new Category();
